@@ -4,6 +4,7 @@ using SB.Application.BillItems.Commands.CreateBillItem;
 using SB.Application.BillItems.Commands.DeleteBillItem;
 using SB.Application.Bills.Commands.CreateBill;
 using SB.Application.Bills.Commands.DeleteBill;
+using SB.Application.Bills.Queries.GetAllBills;
 using SB.Application.Bills.Queries.GetBillById;
 using SB.Application.Contracts;
 using SB.Application.DTOs.Bill.Messages;
@@ -22,11 +23,13 @@ builder.Services.AddTransient<IBillRepository, BillRepository>();
 builder.Services.AddTransient<IBillItemRepository, BillItemRepository>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 
-
+//Mapper
+builder.Services.AddAutoMapper(typeof(GetAllBillsProfileMapper));
 //Bill
 builder.Services.AddTransient<IRequestHandler<CreateBillCommand, BillRepresentation>, CreateBillCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<DeleteBillCommand, BillDeletingMessage>, DeleteBillCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<GetBillByIdQuery, BillRepresentation>, GetBillByIdHandler>();
+builder.Services.AddTransient<IRequestHandler<GetAllBillsQuerie, List<BillRepresentation>>, GetAllBillsHandler>();
 //BillItem
 builder.Services.AddTransient<IRequestHandler<CreateBillItemCommand, BillItemRepresentation>, CreateBillItemCommandHandler>();
 builder.Services.AddTransient<IRequestHandler<DeleteBillItemCommand, BillItemDeletingMessage>, DeleteBillItemCommandHandler>();

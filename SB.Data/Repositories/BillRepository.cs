@@ -39,5 +39,16 @@ namespace SB.Data.Repositories
         {
             return _apiDbContext.Bills.FirstOrDefaultAsync(x => x!.Id == billId);
         }
+
+        public Task<List<Bill?>> GetAllBills()
+        {
+            return Task.Run(() => GetQueryable().ToList());   
+        }
+
+        public IQueryable<Bill?> GetQueryable()
+        {
+            var bills = _apiDbContext.Bills;
+            return bills;
+        }
     }
 }
