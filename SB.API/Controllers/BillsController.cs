@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using SB.API.Requests.BillRequests;
 using SB.Application.Bills.Commands.CreateBill;
 using SB.Application.Bills.Commands.DeleteBill;
+using SB.Application.Bills.Queries.GetAllBills;
 using SB.Application.Bills.Queries.GetBillById;
+using SB.Application.DTOs.Bill.Reperesentations;
 
 namespace SB.API.Controllers
 {
@@ -62,6 +64,13 @@ namespace SB.API.Controllers
             {
                 return BadRequest($"There is no bill with id: {Id}");
             }
-        }  
+        }
+
+        [HttpGet]
+        public async Task<List<BillRepresentation>> GetAllBills()
+        {
+            var result = await _mediator.Send(new GetAllBillsQuerie());
+            return result;
+        }
     }
 }

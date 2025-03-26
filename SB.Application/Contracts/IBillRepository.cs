@@ -8,5 +8,6 @@ namespace SB.Application.Contracts
         Task<Bill> CreateBill(Bill bill);
         Task<BillDeletingMessage> DeleteBill(Guid billId);
         Task<Bill> GetBillById(Guid billId);
+        Task<List<Bill?>> GetAllBills();
     }
 }
